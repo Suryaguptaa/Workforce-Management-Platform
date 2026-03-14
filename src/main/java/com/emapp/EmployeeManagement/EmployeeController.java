@@ -21,15 +21,19 @@ public class EmployeeController {
         this.employeeApplicationService = employeeApplicationService;
     }
 
+    @GetMapping
+    public List<EmployeeResponse> getAllEmployees(){
+        return employeeApplicationService.getAllEmployees();
+    }
+
     @PostMapping
     public EmployeeResponse createEmployee(@Valid @RequestBody EmployeeRequest request){
-            return employeeApplicationService.createEmployee(request);
+        return employeeApplicationService.createEmployee(request);
     }
 
     @PostMapping("/assign-manager")
     public ResponseEntity<Void> assignManager(
-            @Valid @RequestBody AssignManagerRequest request
-            ){
+            @Valid @RequestBody AssignManagerRequest request){
         employeeApplicationService.assignManager(request);
         return ResponseEntity.ok().build();
     }
@@ -42,14 +46,13 @@ public class EmployeeController {
 
     @PostMapping("/assing-team")
     public ResponseEntity<Void> assignTeam(
-            @Valid @RequestBody AssignTeamRequest request
-            ){
+            @Valid @RequestBody AssignTeamRequest request){
         employeeApplicationService.assignTeam(request);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/team/{teamId}")
     public List<EmployeeResponse> getTeamMembers(@PathVariable Long teamId){
-       return employeeApplicationService.getTeamMembers(teamId);
+        return employeeApplicationService.getTeamMembers(teamId);
     }
 }
